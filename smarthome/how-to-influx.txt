@@ -1,0 +1,28 @@
+
+# Running influxdb and mount volume to save data locally
+docker run -p 8086:8086 --volume $PWD:/var/lib/influxdb2 influxdb:latest
+
+# getting the config
+docker run --rm influxdb:latest influxd print-config > config.yml
+
+# running docker image with config and exposing data dir
+docker run -d -p 8086:8086 \
+      -v /home/pendl2/influxdb/data:/var/lib/influxdb2 \
+      -v /home/pendl2/influxdb/config:/etc/influxdb2 \
+      influxdb:latest
+
+# mac
+docker run -d -p 8086:8086 \
+      --name influx \
+      -v /opt/influxdb/data:/var/lib/influxdb2 \
+      -v /opt/influxdb/config:/etc/influxdb2 \
+      influxdb:latest
+
+# pi
+docker run -d -p 8086:8086  --restart=always \
+      --name influx \
+      -v /home/pi/influxdb/data:/var/lib/influxdb \
+      -v /home/pi/influxdb/config/influxdb.conf:/etc/influxdb/influxdb.conf:ro \
+      influxdb:1.8 --config /etc/influxdb/influxdb.conf
+
+docker exec -it influxdb /bin/bash

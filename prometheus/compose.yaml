@@ -1,0 +1,57 @@
+version: '3.7'
+
+volumes:
+  prometheus_data: {}
+
+services:
+  prometheus:
+    container_name: prometheus
+    network_mode: host
+    image: prom/prometheus
+    volumes:
+      - ${PROMETHEUS_CONFIG_FILE:-/home/pi/prometheus/config.yml}:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - cadvisor
+    restart: always
+
+  cadvisor:
+    container_name: cadvisor
+    image: budry/cadvisor-arm:latest
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro 
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+    restart: always
+    deploy:
+      mode: global
+    devices: 
+      - /dev/kmsg
+
+  node-exporter:
+    container_name: nodeexporter
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    ports:
+      - target: 9100
+        published: 9100
+        protocol: tcp
+        mode: host
+    restart: always

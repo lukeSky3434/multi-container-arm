@@ -1,0 +1,33 @@
+
+# raspberry
+
+sudo docker service create --replicas 1 --name my-prometheus --mount type=bind,source=/home/pi/prometheus/config.yml,destination=/etc/prometheus/prometheus.yml     --publish mode=host,published=9090,target=9090,protocol=tcp --publish mode=host,published=9100,target=9100,protocol=tcp --publish mode=host,published=8080,target=8080,protocol=tcp --publish mode=host,published=9323,target=9323,protocol=tcp  --network host prom/prometheus
+
+
+# cadvicsor
+sudo docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:ro \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/dev/disk/:/dev/disk:ro \
+  --publish=8080:8080 \
+  --network=host \
+  --detach=true \
+  --name=cadvisor \
+  --privileged \
+  --device=/dev/kmsg \
+  budry/cadvisor-arm:latest
+
+#  gcr.io/cadvisor/cadvisor:latest
+
+# nodeexporter
+
+sudo docker run \
+  --publish=9100:9100 \
+  --network=host \
+  --detach=true \
+  --name=nodeexporter \
+  prom/node-exporter
+
+

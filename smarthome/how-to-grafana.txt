@@ -1,0 +1,5 @@
+
+# raspi
+
+sudo docker run -d --network host --restart=always --user 1000 -p 3000:3000 --name grafana -v /home/pi/grafana/data:/var/lib/grafana grafana/grafana
+
