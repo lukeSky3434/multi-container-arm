@@ -31,7 +31,7 @@ services:
 
   fronius-reader:
     container_name: fronius
-    image: pendl2/fronius-reader:1.0.0-SNAPSHOT-arm7
+    image: pendl2/fronius-reader:latest
     restart: always
     network_mode: host
     depends_on:

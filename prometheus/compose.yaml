@@ -9,7 +9,7 @@ services:
     network_mode: host
     image: prom/prometheus
     volumes:
-      - ${PROMETHEUS_CONFIG_FILE:-/home/pi/prometheus/config.yml}:/etc/prometheus/prometheus.yml
+      - ${PROMETHEUS_CONFIG_FILE:-/home/pi/git/multi-container-arm/prometheus/config.yml}:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
