@@ -7,6 +7,7 @@ services:
     volumes:
       - ${INFLUX_DB_HOME:-/home/pi/influxdb/}data:/var/lib/influxdb
       - ${INFLUX_DB_HOME:-/home/pi/influxdb/}config/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - ${INFLUX_DB_HOME:-/home/pi/influxdb/}backup/:/backup
     ports:
       - target: 8086
         published: 8086

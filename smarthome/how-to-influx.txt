@@ -26,3 +26,8 @@ docker run -d -p 8086:8086  --restart=always \
       influxdb:1.8 --config /etc/influxdb/influxdb.conf
 
 docker exec -it influxdb /bin/bash
+
+#backup of influxdb
+sudo docker exec influx influxd backup -portable -database home /backup
+
+
