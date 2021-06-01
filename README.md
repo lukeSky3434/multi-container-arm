@@ -17,9 +17,10 @@ GRAFANA_HOME | /home/pi/grafana/ | Variable which points to the grafana home dir
 
 ### Precondition
 
-There should be two directories available in the HOME directory of influx:
+There should be three directories available in the HOME directory of influx:
 * *data*: the docker container will put the data of influx in this directory
 * *config*: config file can be added here (e.g.: influxdb.conf)
+* *backup*: backup directory 
 
 In the HOME directory of grafana there should be one directory:
 * *data*: the docker container will put the data of grafana in this directory
