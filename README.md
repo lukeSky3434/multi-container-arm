@@ -8,11 +8,11 @@ A configuration to Monitor such a device with Prometheus is available. It uses t
 
 The [compose.yaml](smarthome/compose.yaml) includes the service for the influxdb and grafana. As well the fronius energy consumption service will be started, which collects the data. For a further look to configure the fronius energy consumption, you have to switch to the *fronius-energy* [repository](https://github.com/lukeSky3434/fronius-energy).
 
-### Configuiration
+### Configuration
 
 Environment Variable | Default | Description
 ------------ | ------------- | -------------
-INFLUX_DB_HOME | /home/pi/influxdb/ | Variable which points influxdb home directory 
+INFLUX_DB_HOME | /home/pi/influxdb/ | Variable which points influxdb home directory
 GRAFANA_HOME | /home/pi/grafana/ | Variable which points to the grafana home directory
 
 ### Precondition
@@ -20,28 +20,27 @@ GRAFANA_HOME | /home/pi/grafana/ | Variable which points to the grafana home dir
 There should be three directories available in the HOME directory of influx:
 * *data*: the docker container will put the data of influx in this directory
 * *config*: config file can be added here (e.g.: influxdb.conf)
-* *backup*: backup directory 
+* *backup*: backup directory
 
 In the HOME directory of grafana there should be one directory:
 * *data*: the docker container will put the data of grafana in this directory
 
 ## Prometheus
 
-The [compose.yaml](prometheus/compose.yaml) starts the prometheus container with the corresponding [configuration](prometheus/config.yml). 
+The [compose.yaml](prometheus/compose.yaml) starts the prometheus container with the corresponding [configuration](prometheus/config.yml).
 
 Environment Variable | Default | Description
 ------------ | ------------- | -------------
-PROMETHEUS_CONFIG_FILE | /home/pi/prometheus/config.yml | Variable which points to the [configuration file](prometheus/config.yml) 
+PROMETHEUS_CONFIG_FILE | /home/pi/prometheus/config.yml | Variable which points to the [configuration file](prometheus/config.yml)
 
 It also starts the **cadvisor** and **node-exporter** Service.
 
 ## Docker-Compose
 
-Compose is a tool for defining and running multi-container Docker applications, which uses a YAML configuration file. 
+Compose is a tool for defining and running multi-container Docker applications, which uses a YAML configuration file.
 
 To install the compose tool on your maschine follow the [instructions](https://docs.docker.com/compose/install/).
 
 For the start the containers use the `docker-compose up` command, add the `-d` option to run the containers in the background.
 
 To stop and remove everything, the `docker-compose down` command should be used.
-
