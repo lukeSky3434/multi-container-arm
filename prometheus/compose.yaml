@@ -7,12 +7,15 @@ services:
   prometheus:
     container_name: prometheus
     network_mode: host
-    image: prom/prometheus
+    image: prom/prometheus:v2.27.1
     volumes:
       - ${PROMETHEUS_CONFIG_FILE:-/home/pi/git/multi-container-arm/prometheus/config.yml}:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.wal-segment-size=10MB'
+      - '--storage.tsdb.max-block-chunk-segment-size=64MB'
+      - '--storage.tsdb.retention.time=7d'
     depends_on:
       - cadvisor
     restart: always
