@@ -42,3 +42,14 @@ services:
       - influxdb
       - grafana
 
+  em-reader:
+    container_name: energy 
+    image: pendl2/shelly-em-reader:latest 
+    restart: always
+    network_mode: host
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - influxdb
+      - grafana
