@@ -32,7 +32,7 @@ services:
 
   fronius-reader:
     container_name: fronius
-    image: pendl2/fronius-reader:1.0.1
+    image: pendl2/fronius-reader:1.0.0
     restart: always
     network_mode: host
     volumes:
@@ -42,14 +42,19 @@ services:
       - influxdb
       - grafana
 
-  em-reader:
-    container_name: energy 
-    image: pendl2/shelly-em-reader:1.0.0
+  wunder-ground-god:
+    container_name: godfather
+    image: pendl2/wunder-ground-god:1.0.0
     restart: always
     network_mode: host
+    environment:
+      - API.KEY=1f6a233d2dc04f5daa233d2dc0af5d30
+      - DEVICE.ID=IVOITS7
+      - POLL.TIME.MS=60000
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - influxdb
       - grafana
+
