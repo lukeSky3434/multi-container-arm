@@ -32,7 +32,7 @@ services:
 
   fronius-reader:
     container_name: fronius
-    image: pendl2/fronius-reader:1.0.1
+    image: pendl2/fronius-reader:1.0.2
     restart: always
     network_mode: host
     volumes:
@@ -44,7 +44,7 @@ services:
 
   em-reader:
     container_name: energy 
-    image: pendl2/shelly-em-reader:1.0.0
+    image: pendl2/shelly-em-reader:1.0.1
     restart: always
     network_mode: host
     volumes:
